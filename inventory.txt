@@ -1,0 +1,115 @@
+# Application Servers 
+[app_servers_DC] 
+app_dc1_1 ansible_host=192.168.1.10 
+ansible_user=root 
+app_dc1_2 ansible_host=192.168.1.11 
+ansible_user=root ... 
+app_dc2_1 ansible_host=192.168.1.20 
+ansible_user=root 
+app_dc2_2 ansible_host=192.168.1.21 
+ansible_user=root 
+
+[app_server_DR]
+app_dr1_1 ansible_host=192.168.1.30 
+ansible_user=root 
+app_dr1_2 ansible_host=192.168.1.31 
+ansible_user=root  
+app_dr2_1 ansible_host=192.168.1.40 
+ansible_user=root 
+app_dr2_2 ansible_host=192.168.1.41 
+ansible_user=root 
+
+# Web Servers 
+[web_servers_DC] 
+web_dc1_1 ansible_host=192.168.1.50 
+ansible_user=root 
+web_dc1_2 ansible_host=192.168.1.51 
+ansible_user=root  
+web_dc2_1 ansible_host=192.168.1.60 
+ansible_user=root 
+web_dc2_2 ansible_host=192.168.1.61 
+ansible_user=root 
+
+[web_servers_DR]
+web_dr1_1 ansible_host=192.168.1.70 
+ansible_user=root 
+web_dr1_2 ansible_host=192.168.1.71 
+ansible_user=root 
+web_dr2_1 ansible_host=192.168.1.80 
+ansible_user=root 
+web_dr2_2 ansible_host=192.168.1.81 
+ansible_user=root 
+
+# Database Servers 
+[db_servers_DC:mysql] 
+db_dc1_mysql_1 ansible_host=192.168.1.90 
+ansible_user=root 
+db_dc1_mysql_2 ansible_host=192.168.1.91 
+ansible_user=root 
+db_dc2_mysql_1 ansible_host=192.168.1.100 
+ansible_user=root 
+db_dc2_mysql_2 ansible_host=192.168.1.101 
+ansible_user=root 
+
+[db_servers_DR:mysql]
+db_dr1_mysql_1 ansible_host=192.168.1.110 
+ansible_user=root 
+db_dr1_mysql_2 ansible_host=192.168.1.111 
+ansible_user=root 
+db_dr2_mysql_1 ansible_host=192.168.1.120 
+ansible_user=root 
+db_dr2_mysql_2 ansible_host=192.168.1.121 
+ansible_user=root 
+
+[db_servers_DC:oracle] 
+db_dc1_oracle_1 ansible_host=192.168.1.130 
+ansible_user=root 
+db_dc1_oracle_2 ansible_host=192.168.1.131 
+ansible_user=root 
+db_dc2_oracle_1 ansible_host=192.168.1.140 
+ansible_user=root 
+db_dc2_oracle_2 ansible_host=192.168.1.141 
+ansible_user=root
+
+[db_servers_DC:oracle] 
+db_dr1_oracle_1 ansible_host=192.168.1.150 
+ansible_user=root 
+db_dr1_oracle_2 ansible_host=192.168.1.151 
+ansible_user=root 
+db_dr2_oracle_1 ansible_host=192.168.1.160 
+ansible_user=root 
+db_dr2_oracle_2 ansible_host=192.168.1.161 
+ansible_user=root 
+
+# Groups 
+[dc1:children] 
+app_servers 
+web_servers 
+db_servers 
+
+[dc2:children] 
+app_servers 
+web_servers 
+db_servers 
+
+[dr1:children] 
+app_servers 
+web_servers 
+db_servers 
+
+[dr2:children] 
+app_servers 
+web_servers 
+db_servers 
+
+[mysql:children] 
+db_servers:mysql 
+
+[oracle:children] 
+db_servers:oracle 
+
+[all:children] 
+dc1 
+dc2 
+dr1 
+dr2 
