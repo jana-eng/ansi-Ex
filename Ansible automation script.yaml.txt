@@ -1,0 +1,8 @@
+- name Generate CSV report
+  lineifile:
+    dest: auditReport.csv
+	line: "{{ item.item }},{{ item.stdout }}"
+	create: yes
+  loop: "{{ output.results }}"
+  deletgate_to: localhost
+  become: no
